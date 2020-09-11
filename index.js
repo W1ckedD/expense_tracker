@@ -1,4 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
+const connectDB = require('./config/db');
+connectDB();
 
 let mainWindow;
 

@@ -1,5 +1,6 @@
 <script>
     import ProfileDetails from './components/ProfileDetails.svelte';
+    import CreateProfileScreen from './screens/CreateProfileScreen.svelte';
     import { Router, Link, Route } from 'svelte-routing';
     let name = 'Edward';
 </script>
@@ -8,11 +9,11 @@
     <Router>
         <div class="container">
             <nav>
+                <Link to="/create-profile" class="btn btn-primary m-2">Create Profile</Link>
                 <Link to="/" class="btn btn-primary m-2">Home</Link>
-                <Link to="/about" class="btn btn-primary m-2">About</Link>
             </nav>
-            <Route path="/about">
-                <h1>About</h1>
+            <Route path="/create-profile">
+                <CreateProfileScreen />
             </Route>
             <Route path="/">
                 <ProfileDetails />
