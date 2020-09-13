@@ -2,6 +2,8 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const connectDB = require('./config/db');
 connectDB();
 
+const profileFuncs = require('./funcs/profile');
+
 let mainWindow;
 
 function createWindow() {
@@ -18,9 +20,6 @@ function createWindow() {
 }
 
 
-ipcMain.on('test-connection', (e, data) => {
-    console.log(data);
-    e.reply('test-result', 'connected');
-})
+ipcMain.on('create-profile', profileFuncs.createProfile)
 
 app.on('ready', createWindow);

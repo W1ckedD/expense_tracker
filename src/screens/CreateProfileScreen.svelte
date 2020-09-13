@@ -1,9 +1,18 @@
 <script>
+    const { ipcRenderer } = require('electron');
     let name = '';
     let initialBalance = 0;
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!name) {
+            console.log('Please Enter A Name');
+            return;
+        }
+        ipcRenderer.send('create-profile', {  name, initialBalance });
     };
+    ipcRenderer.on('profile-created', (event, data) => {
+        console.log(data);
+    })
 </script>
 
 <form on:submit={handleSubmit}>
