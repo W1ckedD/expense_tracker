@@ -45,7 +45,6 @@
         {/if}
         $
     </h4>
-    <button class="btn btn-primary" on:click={testConnection}>Test Connection</button>
     <h4>Recent Transactions</h4>
     <TransactionsList transactions={transactions}/>
 </div>

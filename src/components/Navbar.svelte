@@ -16,6 +16,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Main <span class="sr-only">(current)</span></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/transactions">Transactions <span class="sr-only">(current)</span></a>
+                </li>
             </ul>
             <ul class="navbar-nav float-right">
                 <li class="nav-item">

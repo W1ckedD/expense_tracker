@@ -1,6 +1,7 @@
 <script>
     // Screens
     import ProfileDetails from './screens/ProfileDetails.svelte';
+    import Transactions from './screens/Transactions.svelte';
     import CreateProfileScreen from './screens/CreateProfileScreen.svelte';
     import SelectProfileScreen from './screens/SelectProfileScreen.svelte';
 
@@ -26,6 +27,9 @@
             <div class="container">
                 <Route path="/">
                     <ProfileDetails profile={profile} />
+                </Route>
+                <Route path="/transactions">
+                    <Transactions id={profile._id} />
                 </Route>
             </div>
         {:else}

@@ -32,5 +32,5 @@
             {/each}
         </select>
     </div>
-    <button class="btn btn-primary" type="submit">Create Profile</button>
+    <button class="btn btn-primary" type="submit">Login</button>
 </form>
