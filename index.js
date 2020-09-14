@@ -20,6 +20,8 @@ function createWindow() {
 }
 
 
-ipcMain.on('create-profile', profileFuncs.createProfile)
+ipcMain.on('create-profile', profileFuncs.createProfile);
+ipcMain.on('get-all-profiles', profileFuncs.getAllProfiles);
+ipcMain.on('select-profile', profileFuncs.selectProfile);
 
 app.on('ready', createWindow);

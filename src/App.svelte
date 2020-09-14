@@ -1,32 +1,43 @@
 <script>
-    import ProfileDetails from './components/ProfileDetails.svelte';
+    // Screens
+    import ProfileDetails from './screens/ProfileDetails.svelte';
     import CreateProfileScreen from './screens/CreateProfileScreen.svelte';
     import SelectProfileScreen from './screens/SelectProfileScreen.svelte';
-    import { Router, Link, Route } from 'svelte-routing';
+
+    // Components
+    import Navbar from './components/Navbar.svelte';
+
+    import { Router, Route } from 'svelte-routing';
+
     let profile;
+    const setProfile = e => {
+        const data = e.detail;
+        profile = data;
+    };
+    const logout = () => {
+        profile = null;
+    }
 </script>
 
 <main>
     <Router>
-        <div class="container">
-            {#if profile}
-                <ProfileDetails />
-            {:else}
-                <nav>
-                    <Link to="/" class="btn btn-primary m-2">
-                        Select Profile
-                    </Link>
-                    <Link to="/create-profile" class="btn btn-primary m-2">
-                        Create Profile
-                    </Link>
-                </nav>
+        {#if profile}
+            <Navbar profile={true} on:logout={logout}/>
+            <div class="container">
+                <Route path="/">
+                    <ProfileDetails profile={profile} />
+                </Route>
+            </div>
+        {:else}
+            <Navbar profile={false} />
+            <div class="container">
                 <Route path="/create-profile">
-                    <CreateProfileScreen />
+                    <CreateProfileScreen on:setProfile={setProfile} />
                 </Route>
                 <Route path="/">
-                    <SelectProfileScreen />
+                    <SelectProfileScreen on:setProfile={setProfile}/>
                 </Route>
-            {/if}
-        </div>
+            </div>
+        {/if}
     </Router>
 </main>

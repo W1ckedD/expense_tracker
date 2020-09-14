@@ -1,9 +1,9 @@
 <script>
-    import TransactionsList from './TransactionsList.svelte';
-    const { ipcRenderer } = require('electron')
-    let name = 'Edward';
-    let balance = 500.0;
-    let results;
+    import TransactionsList from '../components/TransactionsList.svelte';
+    const { ipcRenderer } = require('electron');
+    export let profile;
+    let name = profile.name;
+    let balance = profile.balance;
     ipcRenderer.on('test-result', (e, res) => {
         results = res;
     })
@@ -35,7 +35,7 @@
 
 <div class="card card-body">
     <h2>Hello {name}</h2>
-    <h3>Your balance: 
+    <h4>Your balance: 
         {#if balance > 0}
         <span class="text-success">{balance}</span>
         {:else if balance === 0}
@@ -44,8 +44,7 @@
         <span class="text-danger">{balance}</span>
         {/if}
         $
-    </h3>
-    <h4>{results}</h4>
+    </h4>
     <button class="btn btn-primary" on:click={testConnection}>Test Connection</button>
     <h4>Recent Transactions</h4>
     <TransactionsList transactions={transactions}/>

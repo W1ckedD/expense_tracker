@@ -1,8 +1,24 @@
 <script>
-    let names = ['Kate', 'Edward', 'James'];
+    const { ipcRenderer } = require('electron');
+    import { onMount, createEventDispatcher } from 'svelte';
+    let names = [];
     let name = '';
+    const dispatch = createEventDispatcher();
+    onMount(() => {
+        ipcRenderer.send('get-all-profiles', null);
+    });
+    ipcRenderer.on('all-profiles-sent', (event, data) => {
+        const profiles = JSON.parse(data.profiles);
+        names = profiles.map(profile => profile['name']);
+        console.log(names);
+    });
+    ipcRenderer.on('profile-selected', (event, data) => {
+        const profile = JSON.parse(data.profile);
+        dispatch('setProfile', profile);
+    });
     const handleSubmit = (e) => {
         e.preventDefault();
+        ipcRenderer.send('select-profile', { name });
     };
 </script>
 
@@ -16,4 +32,5 @@
             {/each}
         </select>
     </div>
+    <button class="btn btn-primary" type="submit">Create Profile</button>
 </form>

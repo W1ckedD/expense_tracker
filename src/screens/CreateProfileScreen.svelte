@@ -2,6 +2,9 @@
     const { ipcRenderer } = require('electron');
     let name = '';
     let initialBalance = 0;
+    import { createEventDispatcher } from 'svelte';
+    import { navigate } from 'svelte-routing';
+    const dispatch = createEventDispatcher();
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!name) {
@@ -9,9 +12,11 @@
             return;
         }
         ipcRenderer.send('create-profile', {  name, initialBalance });
+        navigate('/', { replace: true });
     };
     ipcRenderer.on('profile-created', (event, data) => {
-        console.log(data);
+        const profile = JSON.parse(data.profile);
+        dispatch('setProfile', profile);
     })
 </script>
 
