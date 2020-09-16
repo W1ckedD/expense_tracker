@@ -1,4 +1,8 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
+const connectDB = require('./config/db');
+connectDB();
+
+const userFunctions = require('./functions/user');
 
 let mainWindow;
 
@@ -14,8 +18,7 @@ function createWindow() {
     mainWindow.loadURL('http://localhost:5000');
 }
 
-ipcMain.on('test', (event, data) => {
-    console.log(data);
-})
+ipcMain.on('login', userFunctions.login);
+ipcMain.on('register', userFunctions.register);
 
 app.on('ready', createWindow);
