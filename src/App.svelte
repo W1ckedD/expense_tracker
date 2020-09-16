@@ -1,47 +1,35 @@
 <script>
-    // Screens
-    import ProfileDetails from './screens/ProfileDetails.svelte';
-    import Transactions from './screens/Transactions.svelte';
-    import CreateProfileScreen from './screens/CreateProfileScreen.svelte';
-    import SelectProfileScreen from './screens/SelectProfileScreen.svelte';
-
-    // Components
-    import Navbar from './components/Navbar.svelte';
-
-    import { Router, Route } from 'svelte-routing';
-
-    let profile;
-    const setProfile = e => {
-        const data = e.detail;
-        profile = data;
-    };
-    const logout = () => {
-        profile = null;
-    }
+	export let name;
+	import { onMount } from 'svelte';
+	const { ipcRenderer } = require('electron');
+	onMount(() => {
+		ipcRenderer.send('test', 'foo');
+	});
 </script>
 
 <main>
-    <Router>
-        {#if profile}
-            <Navbar profile={true} on:logout={logout}/>
-            <div class="container">
-                <Route path="/">
-                    <ProfileDetails profile={profile} />
-                </Route>
-                <Route path="/transactions">
-                    <Transactions id={profile._id} />
-                </Route>
-            </div>
-        {:else}
-            <Navbar profile={false} />
-            <div class="container">
-                <Route path="/create-profile">
-                    <CreateProfileScreen on:setProfile={setProfile} />
-                </Route>
-                <Route path="/">
-                    <SelectProfileScreen on:setProfile={setProfile}/>
-                </Route>
-            </div>
-        {/if}
-    </Router>
+	<h1>Hello {name}!</h1>
+	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 </main>
+
+<style>
+	main {
+		text-align: center;
+		padding: 1em;
+		max-width: 240px;
+		margin: 0 auto;
+	}
+
+	h1 {
+		color: #ff3e00;
+		text-transform: uppercase;
+		font-size: 4em;
+		font-weight: 100;
+	}
+
+	@media (min-width: 640px) {
+		main {
+			max-width: none;
+		}
+	}
+</style>

@@ -1,3 +1,3 @@
-# Expense Tracker
-## a simple cross-platform application for tracking your daily expenses
-## Built using Electron and Svelte
+# Expense Tarcker
+## a simple application for keeping track of your daily expeses
+## built using electron and svelte
