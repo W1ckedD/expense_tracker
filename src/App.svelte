@@ -12,6 +12,7 @@
     import Login from './screens/Login.svelte';
     import Register from './screens/Register.svelte';
     import Main from './screens/Main.svelte';
+    import Transactions from './screens/Transactions.svelte';
 
     // Functions
     const setUser = e => {
@@ -32,6 +33,9 @@
         <Navbar isLoggedIn={user ? true : false} on:logout={logout} />
         <div class="container">
             {#if user}
+                <Route path="/transactions">
+                    <Transactions userId={user._id} />
+                </Route>
                 <Route path="/">
                     <Main {user} />
                 </Route>

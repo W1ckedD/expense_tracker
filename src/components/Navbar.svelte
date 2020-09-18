@@ -1,5 +1,5 @@
 <script>
-    import { links } from 'svelte-routing';
+    import { links, navigate } from 'svelte-routing';
     import { createEventDispatcher } from 'svelte';
     const dispatch = createEventDispatcher();
     export let isLoggedIn;
@@ -7,6 +7,7 @@
     // Fucntions
     const logout = () => {
       dispatch('logout', null);
+      navigate('/', { replace: true });
     }
 </script>
 
