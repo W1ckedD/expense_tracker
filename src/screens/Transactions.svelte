@@ -17,6 +17,7 @@
     ipcRenderer.on('user-transactions-sent', (event, data) => {
         const tsx = JSON.parse(data.transactions);
         transactions = tsx;
+        console.log(transactions);
     });
 </script>
 

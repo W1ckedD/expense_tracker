@@ -22,6 +22,7 @@ exports.addTransaction = async (event, data) => {
             user.currentBalance -= transaction.amount;
         }
         await user.save();
+        transaction['newBalance'] = user.currentBalance;
         const tsx = await Transaction.create(transaction);
         event.reply('transaction-added', { transaction: JSON.stringify(tsx) });
     } catch (err) {
