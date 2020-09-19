@@ -12,7 +12,7 @@
     // IPC listeners
     ipcRenderer.on('user-logged-in', (event, data) => {
         const user = JSON.parse(data.user);
-        console.log(user);
+        localStorage.setItem('userId', user._id);
         dispatch('setUser', user);
     });
     ipcRenderer.on('error', (event, data) => {

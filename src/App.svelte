@@ -1,7 +1,7 @@
 <script>
     const { ipcRenderer } = require('electron');
 
-    let user;
+    let userId;
     import { onMount } from 'svelte';
     import { Router, Route } from 'svelte-routing';
 
@@ -13,31 +13,36 @@
     import Register from './screens/Register.svelte';
     import Main from './screens/Main.svelte';
     import Transactions from './screens/Transactions.svelte';
+    import AddTransaction from './screens/AddTransaction.svelte';
 
     // Functions
     const setUser = e => {
-        user = e.detail;
+        userId = e.detail._id;
     };
 
     const logout = () => {
-        user = null;
+        localStorage.removeItem('userId');
+        userId = null;
     };
 
     onMount(() => {
-        // error = null;
+        userId = localStorage.getItem('userId');
     });
 </script>
 
 <main>
     <Router>
-        <Navbar isLoggedIn={user ? true : false} on:logout={logout} />
+        <Navbar isLoggedIn={userId ? true : false} on:logout={logout} />
         <div class="container">
-            {#if user}
+            {#if userId}
+                <Route path="/add-transaction">
+                    <AddTransaction userId={userId}/>
+                </Route>
                 <Route path="/transactions">
-                    <Transactions userId={user._id} />
+                    <Transactions userId={userId} />
                 </Route>
                 <Route path="/">
-                    <Main {user} />
+                    <Main />
                 </Route>
             {:else}
                 <Route path="/register">

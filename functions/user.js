@@ -43,3 +43,16 @@ exports.login = async (event, data) => {
         return;
     }
 }
+
+
+exports.getUser = async (event, data) => {
+    try {
+        const { userId } = data;
+        const user =  await User.findById(userId);
+        event.reply('user-sent', { user: JSON.stringify(user) });
+    } catch (err) {
+        console.log(err);
+        event.reply('error', 'Something went wrong');
+        return;
+    }
+}

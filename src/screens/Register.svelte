@@ -29,6 +29,7 @@
     // IPC listeners
     ipcRenderer.on('user-registered', (event, data) => {
         const user = JSON.parse(data.user);
+        localStorage.setItem('userId', user._id);
         dispatch('setUser', user);
     })
     ipcRenderer.on('error', (event, data) => {
