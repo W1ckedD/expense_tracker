@@ -10,13 +10,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    initialBalance: {
+    balance: {
         type: Number,
         required: true,
         default: 0
-    },
-    currentBalance: {
-        type: Number
     },
     createdAt: {
         type: Date,

@@ -8,8 +8,7 @@ exports.register = async (event, data) => {
         const user = await User.create({
             username,
             password: hashedPassword,
-            initialBalance: parseFloat(initialBalance),
-            currentBalance: parseFloat(initialBalance)
+            balance: parseFloat(initialBalance),
         });
         event.reply('user-registered', { user: JSON.stringify(user) });
     } catch (err) {
@@ -42,17 +41,16 @@ exports.login = async (event, data) => {
         event.reply('error', 'Something went wrong');
         return;
     }
-}
-
+};
 
 exports.getUser = async (event, data) => {
     try {
         const { userId } = data;
-        const user =  await User.findById(userId);
+        const user = await User.findById(userId);
         event.reply('user-sent', { user: JSON.stringify(user) });
     } catch (err) {
         console.log(err);
         event.reply('error', 'Something went wrong');
         return;
     }
-}
+};

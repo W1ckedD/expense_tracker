@@ -1,17 +1,31 @@
 <script>
     const { ipcRenderer } = require('electron');
     import { onMount } from 'svelte';
-
     // Components
-    import LineChart from '../components/LineChart.svelte';
+    import BarChart from '../components/BarChart.svelte';
 
     let userId;
     let user;
     let transactions = [];
+    const date = new Date();
+    let startDate = new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        1
+    ).toISOString();
+    let endDate = new Date(
+        date.getFullYear(),
+        date.getMonth() + 1,
+        0
+    ).toISOString();
     onMount(() => {
         userId = localStorage.getItem('userId');
         ipcRenderer.send('get-user', { userId });
-        ipcRenderer.send('get-user-transactions', { userId });
+        ipcRenderer.send('get-user-transactions-by-date', {
+            userId,
+            startDate,
+            endDate,
+        });
     });
 
     // IPC Listeners
@@ -27,12 +41,15 @@
 <h1>Hello {user ? user.username : ''}</h1>
 <h3>
     Your Balance: {#if user}<span
-            class={user.currentBalance > 0 ? 'text-success' : 'text-danger'}>
-            {user.currentBalance} $
+            class={user.balance > 0 ? 'text-success' : 'text-danger'}>
+            {user.balance} $
         </span>{/if}
     {#if transactions.length === 0}
-        <h4>Loading transactions ...</h4>
+        <h4>Loading chart ...</h4>
     {:else}
-        <LineChart {transactions} />
+        <BarChart
+            {transactions}
+            startDateString={startDate}
+            endDateString={endDate} />
     {/if}
 </h3>

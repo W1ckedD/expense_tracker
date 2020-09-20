@@ -13,14 +13,7 @@ const transactionSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    desc: {
-        type: String,
-    },
     amount: {
-        type: Number,
-        required: true,
-    },
-    newBalance: {
         type: Number,
         required: true,
     },
